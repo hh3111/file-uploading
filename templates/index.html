@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Upload File: </title>
+    </head>
+    <body>
+        <form action="/success" method="post" enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <input type="submit" value="Upload"/>
+        </form>
+        <ul>
+        {% for blob in blobs %}
+                <li>{{blob.name}}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
