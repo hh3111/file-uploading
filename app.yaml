@@ -1,5 +1,9 @@
 runtime: python39
 
+handlers:
+- url: /static
+  static_dir: static
+
 env_variables:
   CLOUD_SQL_USERNAME: admin
   CLOUD_SQL_PASSWORD: admin430

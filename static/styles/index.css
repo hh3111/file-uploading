@@ -1,0 +1,9 @@
+.container {
+    border: 1 none red;
+    border-bottom: 2px solid red;
+    border-radius: 1;
+}
+
+.file {
+    border: 2 none black
+}

@@ -1,32 +1,49 @@
+<link href="{{ url_for('static', filename='index2.css') }}?{{config.APP_ID}}" rel="stylesheet"> 
 <html>
     <head>
         <title>Upload File: </title>
     </head>
     <body>
-        <p>Hello {{username}}</p>
-        <form action="/success" method="post" enctype="multipart/form-data">
-            <input type="file" name="file"/>
-            <input type="submit" value="Upload"/>
-            <input type="hidden" id="id" name="id" value={{id}} />
-            <input type="hidden" id="username" name="id" value={{username}} />
-        </form>
+        <p style="padding-bottom: 0px;">Hello, {{username}}</p>
+        <p>Upload File:</p>
+        <div class="container" style="border: 1px solid black; margin-right: 1000px; margin-left: 40px; padding-left: 10px; padding-top: 15px;">
+            <form action="/success" method="post" enctype="multipart/form-data">
+                <input type="file" name="file"/>
+                <input type="submit" value="Upload"/>
+                <input type="hidden" id="id" name="id" value={{id}} />
+                <input type="hidden" id="username" name="id" value={{username}} />
+            </form>
+        </div>
+
+        <div class="container">
+            <p>Your Files:</p>
+            <ul>
+            {% for blob in blobs %}
+                    <li style="border: 1px solid black; margin-right: 800px; padding-left: 10px">
+                        <p>File Name: {{blob.name}}</p>
+                        <p>SHA256 Hash: {{blob.metadata.get('Hash')}}</p>
+                        <p>Date/Time Added: {{blob.metadata.get('Added')}}</p>
+                        <div>
+                            <form action="/download" method="post" enctype="multipart/form-data">
+                                <input type="hidden" id="id" name="id" value={{id}}/>
+                                <input type="hidden" id="username" name="username" value={{username}}/>
+                                <input type="hidden" id="file" name="file" value={{blob.name}}/>
+                                <input type="submit" value="Download"/>
+                            </form>
+                            <form action="/delete" method="post" enctype="multipart/form-data">
+                                <input type="hidden" id="id" name="id" value={{id}}/>
+                                <input type="hidden" id="username" name="username" value={{username}}/>
+                                <input type="hidden" id="file" name="file" value={{blob.name}}/>
+                                <input type="submit" value="Delete"/>
+                            </form>
+                        </div>
+
+                    </li>
+            {% endfor %}
+            </ul>
+        </div>
         <a href="/login">
             <button>Logout</button>
         </a>
-        <p>Your files</p>
-        <ul>
-        {% for blob in blobs %}
-                <li>
-                    {{blob.name}}
-                    {{blob.metadata.get('Hash')}}
-                    <form action="/download" method="post" enctype="multipart/form-data">
-                        <input type="hidden" id="id" name="id" value={{id}}/>
-                        <input type="hidden" id="username" name="username" value={{username}}/>
-                        <input type="hidden" id="file" name="file" value={{blob.name}}/>
-                        <input type="submit" value="Download"/>
-                    </form>
-                </li>
-        {% endfor %}
-        </ul>
     </body>
 </html>

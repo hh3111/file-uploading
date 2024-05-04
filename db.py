@@ -30,7 +30,6 @@ def get(username, password):
             got_users = (users)
         else:
             got_users = None
-        #print(got_users)
         return got_users
 
 def create(username, password):
@@ -38,6 +37,5 @@ def create(username, password):
     with conn.cursor() as cursor:
         cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)',
                         (username, password))
-        #cursor.execute('INSERT INTO users (username, password) VALUES (test1, test2)')
     conn.commit()
     conn.close()

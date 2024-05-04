@@ -1,3 +1,4 @@
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}">
 <form action="/verify" method="post" enctype="multipart/form-data">
     <div class="container">
       <label for="username"><b>Username</b></label>
@@ -7,8 +8,11 @@
       <input type="password" placeholder="Enter Password" name="password" id="username" value="test" required>
   
       <button type="submit">Login</button>
+      {% if fail %}
+      <p>Incorrect password</p>
+      {% endif %}
       <div class="container signin">
-        <p>Don't have an account?<a href="/register">Register</a>.</p>
+        <b>Don't have an account?<a href="/register"> Register</b>
       </div>
     </div>
   </form> 
